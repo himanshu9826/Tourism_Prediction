@@ -1,0 +1,45 @@
+{
+    "best_parameters": {
+        "model__max_depth": null,
+        "model__min_samples_split": 2,
+        "model__n_estimators": 200
+    },
+    "selected_model": "uncalibrated",
+    "validation_results": {},
+    "metrics": {
+        "accuracy": 0.9067796610169492,
+        "precision": 0.8059701492537313,
+        "recall": 0.6792452830188679,
+        "f1_score": 0.7372013651877133,
+        "roc_auc": 0.9431982122146474,
+        "brier_score": 0.07798922518159807,
+        "log_loss": 0.28062406217928276
+    },
+    "classification_report": {
+        "0": {
+            "precision": 0.9263005780346821,
+            "recall": 0.9610194902548725,
+            "f1-score": 0.9433406916850625,
+            "support": 667.0
+        },
+        "1": {
+            "precision": 0.8059701492537313,
+            "recall": 0.6792452830188679,
+            "f1-score": 0.7372013651877133,
+            "support": 159.0
+        },
+        "accuracy": 0.9067796610169492,
+        "macro avg": {
+            "precision": 0.8661353636442067,
+            "recall": 0.8201323866368702,
+            "f1-score": 0.8402710284363879,
+            "support": 826.0
+        },
+        "weighted avg": {
+            "precision": 0.9031376988867752,
+            "recall": 0.9067796610169492,
+            "f1-score": 0.9036601191510691,
+            "support": 826.0
+        }
+    }
+}

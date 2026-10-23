@@ -1,0 +1,55 @@
+{
+    "source_rows": 4128,
+    "source_columns": 20,
+    "removed_index_columns": [],
+    "missing_target_rows_removed": 0,
+    "exact_duplicate_rows_removed": 0,
+    "category_changes": {
+        "Gender": {
+            "before": {
+                "Male": 2463,
+                "Female": 1510,
+                "Fe Male": 155
+            },
+            "after": {
+                "Male": 2463,
+                "Female": 1665
+            }
+        }
+    },
+    "invalid_numeric_values": {},
+    "out_of_range_values": {},
+    "missing_values_remaining": {},
+    "duplicate_customer_ids": 0,
+    "cleaned_rows": 4128,
+    "cleaned_columns": 20,
+    "purchase_distribution": {
+        "0": 3331,
+        "1": 797
+    },
+    "purchase_rate": 0.1930717054263566,
+    "training_rows": 3302,
+    "testing_rows": 826,
+    "training_purchase_rate": 0.19321623258631132,
+    "testing_purchase_rate": 0.19249394673123488,
+    "model_features": [
+        "Age",
+        "TypeofContact",
+        "CityTier",
+        "DurationOfPitch",
+        "Occupation",
+        "Gender",
+        "NumberOfPersonVisiting",
+        "NumberOfFollowups",
+        "ProductPitched",
+        "PreferredPropertyStar",
+        "MaritalStatus",
+        "NumberOfTrips",
+        "Passport",
+        "PitchSatisfactionScore",
+        "OwnCar",
+        "NumberOfChildrenVisiting",
+        "Designation",
+        "MonthlyIncome"
+    ]
+}

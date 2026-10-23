@@ -1,0 +1,34 @@
+{
+    "dataset": "tourism.csv",
+    "rows": 4128,
+    "columns": 20,
+    "column_names": [
+        "CustomerID",
+        "ProdTaken",
+        "Age",
+        "TypeofContact",
+        "CityTier",
+        "DurationOfPitch",
+        "Occupation",
+        "Gender",
+        "NumberOfPersonVisiting",
+        "NumberOfFollowups",
+        "ProductPitched",
+        "PreferredPropertyStar",
+        "MaritalStatus",
+        "NumberOfTrips",
+        "Passport",
+        "PitchSatisfactionScore",
+        "OwnCar",
+        "NumberOfChildrenVisiting",
+        "Designation",
+        "MonthlyIncome"
+    ],
+    "target_column": "ProdTaken",
+    "target_distribution": {
+        "0": 3331,
+        "1": 797
+    },
+    "unexpected_columns": [],
+    "validation_status": "passed"
+}
