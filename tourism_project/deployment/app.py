@@ -49,16 +49,13 @@ with st.form("customer_input_form"):
     )
     typeofcontact = st.selectbox(
         "Type of Contact",
-        ["Company Invited", "Self Enquiry"]
-    )  
-  
-  
+        ["Company Invitation", "Self Enquiry"],
+    )
     citytier = st.selectbox("City Tier", [1, 2, 3])
     occupation = st.selectbox(
         "Occupation",
-        ["Salaried", "Small Business", "Large Business", "Free Lancer"]
+        ["Salaried", "Small Business", "Large Business"],
     )
-
     gender = st.selectbox("Gender", ["Male", "Female"])
     persons_visiting = st.number_input(
         "Number of Persons Visiting",
@@ -105,78 +102,66 @@ with st.form("customer_input_form"):
     submitted = st.form_submit_button("Predict Purchase")
 
 
-
-
 if submitted:
+    # Match the feature names expected by the training pipeline.
+    input_data = pd.DataFrame([{
+        "Age": age,
+        "TypeofContact": typeofcontact,
+        "CityTier": citytier,
+        "Occupation": occupation,
+        "Gender": gender,
+        "NumberOfPersonVisiting": persons_visiting,
+        "PreferredPropertyStar": property_star,
+        "MaritalStatus": marital_status,
+        "NumberOfTrips": number_of_trips,
+        "Passport": passport,
+        "OwnCar": own_car,
+        "NumberOfChildrenVisiting": children_visiting,
+        "Designation": designation,
+        "MonthlyIncome": monthly_income,
+        "PitchSatisfactionScore": pitch_satisfaction,
+        "ProductPitched": product_pitched,
+        "NumberOfFollowups": followups,
+        "DurationOfPitch": pitch_duration,
+    }])
+
     try:
-        # Build customer input using the same feature names as training.
-        input_data = pd.DataFrame([{
-            "Age": age,
-            "TypeofContact": typeofcontact,
-            "CityTier": citytier,
-            "Occupation": occupation,
-            "Gender": gender,
-            "NumberOfPersonVisiting": persons_visiting,
-            "PreferredPropertyStar": property_star,
-            "MaritalStatus": marital_status,
-            "NumberOfTrips": number_of_trips,
-            "Passport": passport,
-            "OwnCar": own_car,
-            "NumberOfChildrenVisiting": children_visiting,
-            "Designation": designation,
-            "MonthlyIncome": monthly_income,
-            "PitchSatisfactionScore": pitch_satisfaction,
-            "ProductPitched": product_pitched,
-            "NumberOfFollowups": followups,
-            "DurationOfPitch": pitch_duration,
-        }])
-
-        # Check that the loaded model expects these features.
+        # Fail clearly if the model expects different columns.
         expected_columns = getattr(model, "feature_names_in_", None)
-
         if expected_columns is not None:
-            expected_columns = list(expected_columns)
-
             missing = set(expected_columns) - set(input_data.columns)
             extra = set(input_data.columns) - set(expected_columns)
 
             if missing or extra:
                 st.error(
-                    f"Feature mismatch. Missing: {sorted(missing)}; "
-                    f"unexpected: {sorted(extra)}"
+                    "Input columns do not match the trained model. "
+                    f"Missing: {sorted(missing)}; "
+                    f"unexpected: {sorted(extra)}. "
+                    "Check prep.py and train.py."
                 )
                 st.stop()
 
-            input_data = input_data[expected_columns]
+            input_data = input_data[list(expected_columns)]
 
-        # Predict the class and purchase probability.
         prediction = int(model.predict(input_data)[0])
-        classes = list(model.classes_)
-
-        if 1 not in classes:
-            raise ValueError("Purchase class ProdTaken=1 was not found.")
-
-        purchase_index = classes.index(1)
-        purchase_probability = float(
-            model.predict_proba(input_data)[0][purchase_index]
-        )
 
         st.subheader("Prediction Result")
-
         if prediction == 1:
-            st.success("The model predicts purchase.")
+            st.success(
+                "The model predicts that the customer is likely "
+                "to purchase the tourism package."
+            )
         else:
-            st.info("The model predicts no purchase.")
+            st.info(
+                "The model predicts that the customer is unlikely "
+                "to purchase the tourism package."
+            )
 
-        st.metric(
-            "Purchase Probability",
-            f"{purchase_probability * 100:.2f}%"
-        )
-
-        st.caption(
-            "This is the probability estimated by the loaded model. "
-            "It is not a guarantee that the customer will purchase."
-        )
-
+        if hasattr(model, "predict_proba"):
+            probabilities = model.predict_proba(input_data)[0]
+            st.metric(
+                "Purchase Probability",
+                f"{probabilities[1] * 100:.2f}%",
+            )
     except Exception as exc:
         st.error(f"Prediction failed: {exc}")
