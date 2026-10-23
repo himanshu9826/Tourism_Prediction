@@ -1,21 +1,32 @@
-
-# Python
-__pycache__/
-*.py[cod]
+# Python environment
 .venv/
 venv/
-.env
-.env.*
+__pycache__/
+*.py[cod]
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
 
-# IDE
-.vscode/
+# Secrets
+.env
+.env.*
+!.env.example
 
-# ML experiment and temporary files
-mlruns/
-*.log
+# IDE and operating system
+.vscode/
 .DS_Store
+Thumbs.db
+
+# Local MLflow tracking
+mlruns/
+mlflow.db
+mlflow.db-shm
+mlflow.db-wal
+
+# Generated project reports
+project_structure.txt
+tourism_project/deployment/all_test_predictions.csv
+tourism_project/deployment/prediction_test_results.csv
+tourism_project/data/tourism_backup.bin
