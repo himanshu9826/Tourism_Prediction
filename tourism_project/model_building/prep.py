@@ -368,21 +368,12 @@ def prepare_data():
     train_df = X_train.copy()
     test_df = X_test.copy()
 
-    # Add identifiers back only for traceability.
-    if ID_COLUMN in df.columns:
-        train_df[ID_COLUMN] = df.loc[
-            X_train.index, ID_COLUMN
-        ]
-
-        test_df[ID_COLUMN] = df.loc[
-            X_test.index, ID_COLUMN
-        ]
 
     train_df[TARGET_COLUMN] = y_train
     test_df[TARGET_COLUMN] = y_test
 
     # Keep a consistent column order.
-    output_columns = list(df.columns)
+    output_columns = list(X.columns) + [TARGET_COLUMN]
 
     train_df = train_df[output_columns]
     test_df = test_df[output_columns]
